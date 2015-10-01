@@ -1,0 +1,10 @@
+---
+"extends":
+  - "loansolutions"
+
+"env":
+  "amd": true,
+  "mocha": true,
+  "jasmine": true
+
+

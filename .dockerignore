@@ -1,0 +1,11 @@
+# frontend tmp files
+node_modules
+build/
+*.tmp
+*.map
+
+# crap files
+*.log
+
+# mac files
+.DS_Store
