@@ -1,0 +1,134 @@
+@import 'bootstrap';
+@import 'weather-icons-wind';
+@import 'weather-icons';
+
+#main{
+	padding: 15px;
+	margin-left: 15%;
+	width: 75%;
+}
+
+.custom-table{
+	width: 100%;
+}
+
+.custom-panel-padding{
+	width: 50%;
+	float: left;
+    display: inline-block;
+}
+
+
+.custom-nav{
+	margin-top: 15px;
+}
+
+.custom-container{
+	width: 100%;
+	padding: 0;
+}
+
+.panel > .table:last-child, .panel > .table-responsive:last-child > .table:last-child .custom-font{
+	font-size: 30px;
+}
+
+.input-group-addon:not(:first-child):not(:last-child), .input-group-btn:not(:first-child):not(:last-child), .input-group .form-control:not(:first-child):not(:last-child).custom-radius{
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	width: 100%;
+}
+
+.custom-group{
+	padding-left: 15px;
+	padding-right: 10px;
+}
+
+.custom-span-style{
+    margin-right: 10px;
+}
+
+.weather{		
+	width: 47%;
+  	margin-top: 1rem;
+    float: right;
+	padding: 20px;
+    display: inline-block;
+}
+
+
+.custom-nav-inverse{
+	border-radius: 0;
+	background-color: #31708f;
+    border-color: #31708f;
+}
+
+
+.custom-fluid{
+	width: 70%;
+}
+
+.custom-icon{
+	font-size: 20rem;
+}
+
+.custom-name{
+	font-size: 3rem;
+}
+
+.custom-span{
+	padding: 5px;
+}
+
+
+.custom-icon-size{
+	font-size: 10rem;
+}
+
+.custom-margin{
+	margin-top: 10rem;
+}
+
+.custom-head{
+	font-size: 3rem;
+    width: 31%;
+    margin-top: 1rem;
+    float: right;
+    display: inline-block;
+}
+
+.custom-jumbo{
+	background-color: #2C6784;
+	margin-bottom: 0;
+	text-align: left;
+	color: #74ADCA;
+}
+
+
+.custom-h1{
+	font-family: sans-serif;
+	color: white;
+}
+
+.navbar-inverse .navbar-brand.custom-nav{
+	color: white;
+}
+
+.custom-border{
+	font-size: 25px;
+    border-radius: 10%;
+    border: 5px;
+    padding: 5px;
+    border-style: solid;
+    border-color: #674D90;
+    background-color: #674D90;
+    color: white;
+}
+
+.custom-foot{
+	padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    color: #99979c;
+    text-align: center;
+    background-color: #2a2730;
+}

@@ -1,0 +1,50 @@
+<!-- <input ng-model="createTodo" type="text"/> -->
+
+<span><button class="btn btn-primary btn-lg" ng-click="AddRow()">Add</button></span>
+<span><button class="btn btn-warning btn-lg" ng-click="HideRow()">{{hide?'Show':'Hide'}}</button></span>
+<hr/>
+
+	<div class="panel panel-info custom-panel-padding"> 
+		<div class="panel-heading"> 
+			<h3 class="panel-title">Todo List</h3> 
+		</div> 
+		<!-- <div class="panel-body"></div> -->
+		<table class="table custom-table">
+			<tr ng-repeat="template in templateUrl track by $index">
+				<td ng-include="template.url" ></td>
+			</tr>
+
+		</table>
+	</div>
+
+	<div class="custom-head">
+		Weather Condition
+	</div>
+
+	<div  class="weather text-center text-info well">
+<!-- 		<div id="d1">{{date}}</div>
+		<div id="d2">{{suntime}}</div>	
+		<i class="wi wi-day-sunny"></i> -->
+		<div><i class="{{weatherIcon}} custom-icon"></i></div>
+		<div class="custom-name">
+		<div><span>{{weatherName}}</span></div>
+		<div><span class="custom-span">{{weatherHum}}</span><span><i class='wi wi-humidity'></i></span></div>
+		<div ><span class="custom-span">{{weatherTemp}}</span><span><i class='wi wi-celsius'></i></span></div>
+		<div class="custom-margin">
+			<span><i class='wi wi-sunrise custom-icon-size'></i>
+				<span class="custom-span">{{weatherRise}}</span>
+			</span>
+			<span><i class='wi wi-sunset custom-icon-size'></i>
+				<span class="custom-span">{{weatherSet}}</span>
+			</span></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+

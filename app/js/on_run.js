@@ -14,6 +14,8 @@ function OnRun($rootScope, AppSettings) {
 			$rootScope.pageTitle += ' \u2014 ';
 		}
 
+		$rootScope.cur_state = toState.name;
+
 		$rootScope.pageTitle += AppSettings.appTitle;
 	});
 
