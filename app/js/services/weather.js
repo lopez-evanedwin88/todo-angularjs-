@@ -14,7 +14,7 @@ function WeatherService($q, $http) {
 
 		var api = {
 			method: 'GET',
-			url : 'http://api.openweathermap.org/data/2.5/weather?q=Cebu,uk&appid=2de143494c0b295cca9337e1e96b00e0&units=metric'
+			url : 'http://api.openweathermap.org/data/2.5/weather?q=Cebu,ph&units=metric&appid=2de143494c0b295cca9337e1e96b00e0'
 		};
 		// $http.get('http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=2de143494c0b295cca9337e1e96b00e0')
 		$http(api).success(function(data) {
