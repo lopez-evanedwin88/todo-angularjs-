@@ -3,9 +3,13 @@
 /**
  * @ngInject
  */
-function OnConfig($stateProvider, $locationProvider, $urlRouterProvider) {
+function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, ParseProvider) {
 
 	$locationProvider.html5Mode(true);
+	
+	ParseProvider.initialize("vMq3gZdznN9aMQv0EKl5uloEPVYbGrXpQYO9oKXV", "g3WJ2cdnmtpultyhdda9Hr9zBVjtDc9ya0RQ4Bos");
+	
+	// console.log(ParseProvider)
 
 	$stateProvider
 	.state('root', {

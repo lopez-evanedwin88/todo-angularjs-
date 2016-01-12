@@ -1,11 +1,12 @@
 'use strict';
 
 var angular = require('angular');
-
 // angular modules
 require('angular-ui-router');
 // require('materialize');
 // require('bootstrap-sass');
+require('angular-parse');
+// require ('parse');
 require('./templates');
 require('./controllers/_index');
 require('./services/_index');
@@ -19,11 +20,13 @@ angular.element(document).ready(function() {
 		'templates',
 		'app.controllers',
 		'app.services',
-		'app.directives'
+		'app.directives',
+		'ngParse'
 	];
 
 	// mount on window for testing
 	window.app = angular.module('app', requires);
+
 
 	angular.module('app').constant('AppSettings', require('./constants'));
 

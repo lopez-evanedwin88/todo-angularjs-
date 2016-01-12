@@ -2,28 +2,45 @@
 
 var controllersModule = require('./_index');
 
+
 /**
  * @ngInject
  */
-function MainCtrl( $rootScope, $scope, $filter, getService) {
-
+function MainCtrl( $rootScope, $scope, $filter, getService, Parse, ParseService) {
+	
 	// ViewModel
 	var vm = this;
-	
 	vm.title = 'Main';
 	vm.number = 1234;
-
 	$scope.templateUrl = [];
 	
+	// $scope.templateUrl.push({'name':'','url':'tr-layout-save.html','isDone': false,'btnSetColor': true,'btnDisable':false});
+
 	vm.container = [];
 	$scope.hide = false;
 
-	// WeatherService.get()
-	// 	.then( function( value ) {
-	// 		console.log(value);
-	// 	})
-	
-	console.log(getService);
+	// var object = Parse.Object.extend("TestObject");
+	// var temp = new object();
+	// temp.set("name","evan");
+	// temp.set("look","gwapo");
+	// temp.save();
+
+	var todoList = ParseService.intiateParse();
+	var query = new Parse.Query(todoList);
+
+	query.find({
+		success: function(results){
+			for ( var i = 0; i < results.length; i++)
+			{
+				$scope.templateUrl.push({'name':results[i].get('name'),'url':results[i].get('url'),'isDone':results[i].get('isDone'),'btnSetColor':results[i].get('btnSetColor'),'btnDisable':results[i].get('btnDisable'),'ObjectId':results[i].id});
+			}
+		},
+		error: function(error){
+			alert("Error: " + error.code + " "+ error.message);
+		}
+	});
+	vm.container = $scope.templateUrl;
+
 
 	var sec = getService.sys.sunset;
 	var date = new Date(sec * 1000);
@@ -33,7 +50,6 @@ function MainCtrl( $rootScope, $scope, $filter, getService) {
 	var date1 = new Date(sec1 * 1000);
 	var timestr1 = date1.toLocaleTimeString();
 
-	console.log(date, timestr);
 
 	// $("#d1").html(date);
 	// $("#d2").html(timestr);
@@ -95,31 +111,71 @@ function MainCtrl( $rootScope, $scope, $filter, getService) {
 	$scope.AddRow = function()
 	{
 		$scope.createTodo='';
-		var template = {'name':'','url':'tr-layout-save.html','isDone': false,'btnSetColor': true,'btnDisable':false};
+		var template = {'name':'','url':'tr-layout-save.html','isDone': false,'btnSetColor': true,'btnDisable':false, 'ObjectId':null};
 		$scope.templateUrl.push(template);
 	}
 
 	$scope.SaveTodo = function(index,created){
 	
-		var template = {'name':created,'url':'tr-layout-edit.html','isDone': false,'btnSetColor': true,'btnDisable':false};
+		var template = {'name':created,'url':'tr-layout-edit.html','isDone': false,'btnSetColor': true,'btnDisable':false, 'ObjectId':null};
 		$scope.templateUrl[index] = template;
 		vm.container = $scope.templateUrl;
+		var parsecreate = ParseService.intiate();
+		parsecreate.set("name",created);
+		parsecreate.set("url",'tr-layout-edit.html');
+		parsecreate.set("isDone",false);
+		parsecreate.set("btnSetColor",true);
+		parsecreate.set("btnDisable",false);
+		parsecreate.save(null,{
+			success: function(parsecreate){
+				alert('Successfully added to the List');
+				template.ObjectId = parsecreate.id;
+			},
+			error: function(parsecreate,error){
+				alert('Failed to Add in the list '+error.message );
+			}
+		});
 	}
 
-	$scope.EditRow = function(index,edited) {
+	$scope.EditRow = function(index,id) {
 
-		var template = {'name':edited,'url':'tr-layout-toedit.html','isDone': false,'btnSetColor': true,'btnDisable':false};
-		console.log(edited);
-		$scope.templateUrl[index] = template;		
-		vm.container = $scope.templateUrl;
+		var parseEdit = ParseService.intiateParse();
+		var query = new Parse.Query(parseEdit);
+		query.get(id,{
+			success: function(todo){
+				console.log(todo);
+				var template = {'name':todo.get('name'),'url':'tr-layout-toedit.html','ObjectId':todo.id};
+				$scope.templateUrl[index] = template;		
+				vm.container = $scope.templateUrl;
+			},
+			error: function(object,error){
+
+			}
+		});
+		
+
 	}
 
-	$scope.toSaveTodo = function(index, created)
+	$scope.toSaveTodo = function(index, id, name)
 	{
 		// console.log(this.template);
-		var template = {'name':created,'url':'tr-layout-edit.html','isDone':false,'btnSetColor': true,'btnDisable':false};
+		var template = {'name':name,'url':'tr-layout-edit.html','isDone':false,'btnSetColor': true,'btnDisable':false,  'ObjectId':null};
 		$scope.templateUrl[index] = template;
 		vm.container = $scope.templateUrl;
+		var parseupdate = ParseService.intiate();
+		var query = new Parse.Query(parseupdate);
+		query.equalTo("objectId",id);
+		query.first({
+		  success: function(object) {
+		    object.set("name",name);
+		    object.save();
+		    // console.log(template);
+		  },
+		  error: function(error) {
+		    alert("Error: " + error.code + " " + error.message);
+		  }
+		});
+				
 	}
 
 	$scope.DeleteRow = function(index) {
@@ -127,12 +183,30 @@ function MainCtrl( $rootScope, $scope, $filter, getService) {
 		vm.container = $scope.templateUrl;
 	}
 
-	$scope.toggle = function(){
+	$scope.toggle = function(id){
 		vm.container = $scope.templateUrl;
 		this.template.btnSetColor = !this.template.btnSetColor;
 		this.template.btnDisable = !this.template.btnDisable;
-		return this.template.isDone = !this.template.isDone;
+		this.template.isDone= !this.template.isDone;
 
+		var doneStat = this.template.isDone;
+		var DisableStat = this.template.btnDisable;
+		var ColorStat = this.template.btnSetColor;
+
+		var parseupdate = ParseService.intiate();
+		var query = new Parse.Query(parseupdate);
+		query.equalTo("objectId",id);
+		query.first({
+		  success: function(object) {
+		    object.set("isDone",doneStat);
+		    object.set("btnSetColor",ColorStat);
+		    object.set("btnDisable",DisableStat);
+		    object.save();
+		  },
+		  error: function(error) {
+		    alert("Error: " + error.code + " " + error.message);
+		  }
+		});
 	}
 
 	$scope.HideRow = function(){

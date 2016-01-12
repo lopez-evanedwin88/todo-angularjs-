@@ -83,5 +83,8 @@
     "preprotractor": "npm run update-webdriver",
     "protractor": "npm run protractor test/protractor.conf.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "node-parse-api": "^0.3.8",
+    "parse": "^1.6.13"
+  }
 }

@@ -3,8 +3,8 @@
   <span class="input-group-addon" id="sizing-addon1" ng-style="{'text-decoration': template.isDone ?'line-through':'none'}"><span class="{{template.isDone?'glyphicon glyphicon-ok':'glyphicon glyphicon-pushpin'}}"></span></span>
   <input type="text" class="form-control custom-radius" readonly="true" value="{{template.name}}" placeholder="" aria-describedby="sizing-addon1"></input>
   <div class="input-group-btn custom-group">
-  <span class="custom-span-style"><input type="button" ng-disabled="template.isDone" class="btn btn-primary" value="Edit" ng-click="EditRow($index,template.name)"/></span>
-  <span><input type="button" class="{{template.btnSetColor?'btn btn-default':'btn btn-danger'}}" value="{{template.isDone?'Undone':'Done'}}" ng-click="toggle()"/></span>
+  <span class="custom-span-style"><input type="button" ng-disabled="template.isDone" class="btn btn-primary" value="Edit" ng-click="EditRow($index,template.ObjectId)"/></span>
+  <span><input type="button" class="{{template.btnSetColor?'btn btn-default':'btn btn-danger'}}" value="{{template.isDone?'Undone':'Done'}}" ng-click="toggle(template.ObjectId)"/></span>
   </div>
 </div>
 </div>
